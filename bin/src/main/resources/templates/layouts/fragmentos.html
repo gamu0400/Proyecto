@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head th:fragment="cabeza">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cpanel</title>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="shortcut icon" th:href="@{/Imagen/logo.jpg}" type="image/x-icon" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/bootstrap.min.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/css/all.css}">
+<script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/formulario.js}"></script>
+</head>
+
+<body>
+	<input type="checkbox" id="check">
+	<!--header area start-->
+	<div class="cabeza" th:fragment="Primerfragment">
+		<label for="check"> <i class="fas fa-bars" id="sidebar_btn"
+			style="padding: 10px"></i>
+		</label>
+		<div class="left_area estilo_letra">
+			<h3 style="font-size: 30px; font-weight: bold;">
+				Bron'S <span>Shoes</span>
+			</h3>
+		</div>
+		<div class="right_area">
+			<a href="#" class="logout_btn">Cerrar Sesión</a>
+		</div>
+	</div>
+	<!--header area end-->
+	<div class="mobile_nav" th:fragment="Segundofragment">
+		<div class="nav_bar">
+			<img src="/Imagen/logo.jpg" class="mobile_profile_image" alt=""> <i
+				class="fa fa-bars nav_btn"></i>
+		</div>
+		<div class="mobile_nav_items">
+			<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon" style="width : 100%"><i class="fas fa-plus-square"></i><span>Ingresar</span><span class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></span></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav"></nav>
+                            </div>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                
+                                    <a class="nav-link" th:href="@{/usuario/}"><div class="espacio"></div><i class="fas fa-user"></i><span>Usuario</span></a>
+                                    <a class="nav-link" th:href="@{/categoria/}"><div class="espacio"></div><i class="fas fa-filter"></i><span>Categoria</span></a>
+                                    <a class="nav-link" th:href="@{/tienda/}"><div class="espacio"></div><i class="fas fa-store"></i><span>Tienda</span></a>
+                                    <a class="nav-link" th:href="@{/empleado/}"><div class="espacio"></div><i class="fas fa-pray"></i><span>Empleado</span></a>
+                             
+                                </nav>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </nav>
+			
+			<a href="#"><i class="fas fa-search"></i><span>Buscar</span></a> 
+			<a href="#"><i class="fas fa-trash-alt"></i><span>Eliminar</span></a> 
+			<a href="#"><i class="fas fa-edit"></i><span>Modificar</span></a> 
+			<a href="#"><i class="fas fa-list"></i><span>Listado</span></a>
+		</div>
+	</div>
+	<!--sidebar start-->
+	<div class="sidebar" th:fragment="Tercerfragment">
+		<div class="profile_info">
+			<img src="/Imagen/logo.jpg" class="profile_image" alt="">
+			<h4>Inventario</h4>
+		</div>
+		<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <div class="nav">
+                            <a class="nav-link collapsed" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-plus-square"></i> <span>Ingresar</span><span class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></span></div>
+                            </a>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav"></nav>
+                            </div>
+                            <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
+                              <nav class="sb-sidenav-menu-nested nav" style="padding-left : 50px">
+                                   <a class="nav-link" th:href="@{/usuario/}"><i class="fas fa-user"></i><span>Usuario</span></a>
+                                    <a class="nav-link" th:href="@{/categoria/}"><i class="fas fa-filter"></i><span>Categoria</span></a>
+                                    <a class="nav-link" th:href="@{/tienda/}"><i class="fas fa-store"></i><span>Tienda</span></a>
+                                    <a class="nav-link" th:href="@{/empleado/}"><i class="fas fa-pray"></i><span>Empleado</span></a>
+                                </nav>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </nav>
+		<a href="#"><i class="fas fa-search"></i><span>Buscar</span></a> 
+		<a href="#"><i class="fas fa-trash-alt"></i><span>Eliminar</span></a> 
+		<a href="#"><i class="fas fa-edit"></i><span>Modificar</span></a> 
+		<a href="#"><i class="fas fa-list"></i><span>Listado</span></a>
+	</div>
+	<!--sidebar end-->
+
+	<div class="content"></div>
+
+	<script type="text/javascript" th:src="@{/js/nav.js}"></script>
+
+</body>
+</html>

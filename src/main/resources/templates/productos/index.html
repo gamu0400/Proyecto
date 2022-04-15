@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head th:replace="Layouts/fragmentos :: cabeza">
+<meta charset="utf-8">
+
+</head>
+<body>
+
+	<input type="checkbox" id="check">
+	<!--header area start-->
+	<div class="cabeza" th:replace="Layouts/fragmentos :: Primerfragment"></div>
+	<!--header area end-->
+	<div class="mobile_nav"
+		th:replace="Layouts/fragmentos :: Segundofragment"></div>
+	<!--sidebar start-->
+	<div class="sidebar" th:replace="Layouts/fragmentos :: Tercerfragment"></div>
+	<!--sidebar end-->
+
+	<div class="content">
+	<div th:replace="Layouts/fragmentos :: advertencias"></div>
+		<form th:action="@{/productos/form/}" th:object="${productos}"
+			method="post" class="needs-validation" novalidate>
+			<div class="container mt-4">
+				<div class="card">
+					<div class="card-header color-barra text-white">Datos de
+						Producto</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label>Categoría:</label>
+								 <select class="form-control"	th:field="*{categoria.id}" required="required">
+									<option value="">Seleccione una opción</option>
+									<option th:each="item : ${listaCategorias}"
+										th:value="${item.id}" th:text="${item.categorianombre}"></option>
+								</select>
+								<div class="invalid-feedback">Seleccione una Categoría</div>
+							</div>
+							<div class="col-md-6 mb-3"></div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label>Marca del Producto: </label> <input type="text"
+									class="form-control" th:field="*{marca}"
+									placeholder="Ingrese Marca del Producto" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									title="Username should only contain lowercase letters. e.g. john" required="required" />
+								<div class="invalid-feedback">Ingrese Marca del producto</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('marca')}"
+									th:errors="*{marca}"></small>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>Nombre del Producto: </label> <input type="text"
+									class="form-control" th:field="*{nombre}"
+									placeholder="Ingrese Nombre del Producto" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									 required="required" />
+								<div class="invalid-feedback">Ingrese Nombre del producto</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('nombre')}"
+									th:errors="*{nombre}"></small>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>Modelo del Producto: </label> <input type="text"
+									class="form-control" th:field="*{modelo}"
+									placeholder="Ingrese Modelo del Producto" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									required="required" />
+								<div class="invalid-feedback">Ingrese Modelo del producto</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('modelo')}"
+									th:errors="*{modelo}"></small>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>Sexo:</label> <select class="form-control"
+									th:field="*{genero}" required="required">
+									<option value="">Seleccione una opción</option>
+									<option value="Hombre">Hombre</option>
+									<option value="Mujer">Mujer</option>
+								</select>
+								<!--  <input type="text" class="form-control" th:field="*{genero}"
+								placeholder="Ingrese Sexo" required="required"/>-->
+								<div class="invalid-feedback">Ingrese Sexo</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('genero')}"
+									th:errors="*{genero}"></small>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>Precio del Producto: </label> <input type="text"
+									class="form-control" th:field="*{precio}"
+									placeholder="Ingrese precio del Producto" required="required" />
+								<div class="invalid-feedback">Ingrese Precio</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('precio')}"
+									th:errors="*{precio}"></small>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>Descripción del Producto: </label> <input type="text"
+									class="form-control" th:field="*{descripcion}"
+									placeholder="Ingrese descripción del Producto"
+									 required="required" />
+								<div class="invalid-feedback">Ingrese Descripción</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('descripcion')}"
+									th:errors="*{descripcion}"></small>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-warning">
+									<i class="fas fa-save"></i> Guardar Producto
+								</button>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</form>
+		<br> <br> <br>
+		<div class="card">
+			<div class="card-header color-barra	 text-white">Productos
+				Registrados</div>
+			<div class="card-body">
+				<div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Marca</th>
+								<th scope="col">Nombre</th>
+								<th scope="col">Modelo</th>
+								<th scope="col">Género</th>
+								<th scope="col">Precio</th>
+								<th scope="col">Descripción</th>
+								<th scope="col">Id Categoría</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="item: ${listaProductos}">
+								<th th:text="${item.id}"></th>
+								<td th:text="${item.marca}"></td>
+								<td th:text="${item.nombre}"></td>
+								<td th:text="${item.modelo}"></td>
+								<td th:text="${item.genero}"></td>
+								<td th:text="${item.precio}"></td>
+								<td th:text="${item.descripcion}"></td>
+								<td th:text="${item.categoria.categorianombre}"></td>
+								<td class="text-center">
+								<a href="#" th:id="${item.id}"
+									th:param1="${item.marca}" th:param2="${item.nombre}"
+									th:param3="${item.modelo}" th:param4="${item.genero}"
+									th:param5="${item.precio}" th:param6="${item.descripcion}"
+									th:param7="${item.categoria.id}"
+									class="btn btn-warning editarProductos"><i
+										class="fas fa-edit"></i> Editar</a>		
+									<a th:onclick="eliminar([[${item.id}]])" href="#"
+									class="btn btn-danger"><i
+										class="fas fa-trash"></i> Eliminar</a>								
+									</td>
+								
+										
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal Editar Categoria -->
+	<div id="editarProductos" class="modal fade" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+		data-backdrop="static">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header color-barra text-white">
+					<h5 class="modal-title">Editar Productos</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" th:action="@{/productos/form}"
+					th:object="${productos}" class="needs-validation" novalidate>
+					<input type="hidden" th:field="*{id}" />
+					<div class="modal-body" id="modalMensaje">
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Marca:</label> <input name="marca" id="txtMarca"
+									type="text" class="form-control" placeholder="Ingrese marca"
+									minlength="1" maxlength="50" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									 required="required" />
+								<div class="invalid-feedback">Ingrese la Marca</div>
+							</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('marca')}"
+									th:errors="*{marca}"></small>
+							
+						</div>
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Nombre:</label> <input name="nombre" id="txtNombre"
+									type="text" class="form-control" placeholder="Ingrese nombre"
+									pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									required="required" />
+								<div class="invalid-feedback">Ingrese los nombres</div>
+							</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('nombre')}"
+									th:errors="*{nombre}"></small>
+							
+						</div>
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Modelo:</label> <input name="modelo" id="txtModelo"
+									type="text" class="form-control" placeholder="Ingrese modelo"
+									minlength="1" maxlength="50" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									required="required" />
+								<div class="invalid-feedback">Ingrese el modelo</div>
+							</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('modelo')}"
+									th:errors="*{modelo}"></small>
+						</div>
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Género:</label> 
+									<select	name="genero" id="txtGenero" type="text" class="form-control" th:field="*{genero}" required="required">
+									<option value="">Seleccione una opción</option>
+									<option value="Hombre">Hombre</option>
+									<option value="Mujer">Mujer</option>
+								</select> 
+								<div class="invalid-feedback">Ingrese el Género</div>
+							</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('genero')}"
+									th:errors="*{genero}"></small>
+						</div>
+						
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Precio:</label> <input name="precio" id="txtPrecio"
+									type="text" class="form-control" placeholder="Ingrese Precio"
+									minlength="1" maxlength="50" required="required" />
+								<div class="invalid-feedback">Ingrese el precio</div>
+							</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('precio')}"
+									th:errors="*{precio}"></small>
+						</div>
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Descripción:</label> <input name="descripcion"
+									id="txtDescripcion" type="text" class="form-control"
+									placeholder="Ingrese Descripción" minlength="1" maxlength="50"
+									pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									required="required" />
+								<div class="invalid-feedback">Ingrese Descripción</div>
+							</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('descripcion')}"
+									th:errors="*{descripcion}"></small>
+						</div>
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Categoría:</label>
+								 <select class="form-control" name="categoria.id" id="cbocategoria"  required="required">
+									<option value="">Seleccione una opción</option>
+									<option th:each="item : ${listaCategorias}"
+										th:value="${item.id}" th:text="${item.categorianombre}"></option>
+								</select>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">
+							<i class="fas fa-ban"></i> Cancelar
+						</button>
+						<button class="btn btn-dark" type="submit">
+							<i class="fas fa-save"></i> Guardar Cambios
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="  crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script th:src="@{/js/funciones.js}"></script>
+	<script type="text/javascript" th:src="@{/js/productos.js}"></script>
+	<script type="text/javascript" th:src="@{/js/nav.js}"></script>
+
+</body>
+</html>

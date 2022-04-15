@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head th:replace="Layouts/fragmentos :: cabeza">
+<meta charset="utf-8">
+
+</head>
+<body>
+
+	<input type="checkbox" id="check">
+	<!--header area start-->
+	<div class="cabeza" th:replace="Layouts/fragmentos :: Primerfragment"></div>
+	<!--header area end-->
+	<div class="mobile_nav" th:replace="Layouts/fragmentos :: Segundofragment"></div>
+	<!--sidebar start-->
+	<div class="sidebar" th:replace="Layouts/fragmentos :: Tercerfragment"></div>
+	<!--sidebar end-->
+
+	<div class="content"></div>
+
+	<script type="text/javascript" th:src="@{/js/nav.js}"></script>
+
+</body>
+</html>

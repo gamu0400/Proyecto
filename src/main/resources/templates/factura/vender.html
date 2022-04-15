@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+<head th:replace="Layouts/fragmentos :: cabeza">
+<meta charset="utf-8">
+
+</head>
+<body>
+
+	<input type="checkbox" id="check">
+	<!--header area start-->
+	<div class="cabeza" th:replace="Layouts/fragmentos :: Primerfragment"></div>
+	<!--header area end-->
+	<div class="mobile_nav" th:replace="Layouts/fragmentos :: Segundofragment"></div>
+	<!--sidebar start-->
+	<div class="sidebar" th:replace="Layouts/fragmentos :: Tercerfragment"></div>
+	
+	<!--sidebar end-->
+	
+	<div class="content">
+	<div class="sidebar" th:replace="Layouts/fragmentos :: advertencias"></div>
+	<div class="container mt-4">
+		<form th:action="@{/factura/form/}" th:object="${factura}" method="post">
+			<div class="card">
+				<div class="card-header bg-info text-white">DATOS DE LA VENTA</div>
+					<div class="card-body">
+					<div class="row">
+						<label class="col-sm-2">Cliente: </label>
+						<div class="col-sm-6">
+						<input class="form-control" th:value="${factura.cliente.nombres}+' '+${factura.cliente.apellidos}" disabled="disabled">
+					</div>
+				</div>
+				
+					<div class="row">
+						<label class="col-sm-2">Descripción: </label>
+						<div class="col-sm-6">
+						<input type="text" class="form-control" th:field="*{descripcion}">
+					</div>
+				</div>
+				
+				<div class="row">
+						<label class="col-sm-2">Observación: </label>
+						<div class="col-sm-6">
+						<input type="text" class="form-control" th:field="*{observacion}">
+					</div>
+				</div>
+				
+				<div class="row">
+						<label class="col-sm-2">Buscar Producto: </label>
+						<div class="col-sm-6">
+						<input type="text" class="form-control" name="buscar_producto" id="buscar_producto">
+					</div>
+				</div>
+				
+				<table th:replace="factura/plantilla_items :: itemsFactura"></table>
+				
+			 	<table id="cargarItemProductos" class="table table-striped table-hover">
+					<thead>
+						<th>Nombre</th>
+						<th>Precio</th>
+						<th>Cantidad</th>
+						<th>Total</th>
+						<th>Eliminar</th>
+					</thead>
+						<tbody>
+							
+						</tbody>
+				</table>
+				
+				<h4>Total: <span class="badge badge-secondary" id="gran_total">0.00</span></h4>	
+				<br>
+				<div class="row">
+						<button type="submit" class="btn btn-dark"> <i class="far fa-save"></i> Generar Venta </button>
+					</div>
+				
+				
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	
+	</div>
+	
+	<script type="text/javascript" th:replace="factura/js/autocompletar :: javascript"></script>
+	
+	<script type="text/javascript" th:src="@{/js/nav.js}"></script>
+
+</body>
+</html>

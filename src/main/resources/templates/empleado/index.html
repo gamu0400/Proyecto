@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head th:replace="Layouts/fragmentos :: cabeza">
+<meta charset="utf-8">
+
+</head>
+<body>
+
+	<input type="checkbox" id="check">
+	<!--header area start-->
+	<div class="cabeza" th:replace="Layouts/fragmentos :: Primerfragment"></div>
+	<!--header area end-->
+	<div class="mobile_nav"
+		th:replace="Layouts/fragmentos :: Segundofragment"></div>
+	<!--sidebar start-->
+	<div class="sidebar" th:replace="Layouts/fragmentos :: Tercerfragment"></div>
+	<!--sidebar end-->
+
+	<div class="content">
+		<div th:replace="Layouts/fragmentos :: advertencias"></div>
+		<div class="container mt-4">
+			<form th:action="@{/empleado/form}" th:object="${empleado}"
+				method="post" class="needs-validation" novalidate>
+				<div class="card">
+					<div class="card-header color-barra text-white">Datos del
+						Empleado</div>
+					<div class="card-body">
+						<div class="row">
+
+							<div class="col-md-6 mb-3">
+								<label>Nombre:</label> <input th:field="*{nombre}" type="text"
+									class="form-control" placeholder="Ingrese nombre"
+									required="required" pattern="[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]{2,48}" />
+								<div class="invalid-feedback">Ingrese el nombre</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label>Direccion:</label> <input th:field="*{direccion}"
+									type="text" class="form-control"
+									placeholder="Ingrese descripción" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									required="required" />
+								<div class="invalid-feedback">Ingrese la dirección</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('direccion')}"
+									th:errors="*{direccion}"></small>
+							</div>
+								<div class="col-md-6 mb-3">
+									<label>Teléfono de empleado	: </label> <input type="number"
+										class="form-control" th:field="*{telefono}"
+										placeholder="Ingrese Teléfono"
+										pattern="[0-9]{1,40}" required="required" />
+									<div class="invalid-feedback">Ingrese Telefono </div>
+									<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('telefono')}"
+									th:errors="*{telefono}"></small>
+								</div>	
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-12 text-center">
+								<button type="submit" class="btn btn-warning">
+									<i class="fas fa-save"></i> Guardar Empleado
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<br> <br> <br>
+			<div class="card">
+				<div class="card-header color-barra	 text-white">Empleados
+					Registrados</div>
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-bordered table-hover">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Nombre</th>
+									<th scope="col">Direccion</th>
+									<th scope="col">Telefono</th>
+									<th scope="col">Fecha de ingreso</th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item: ${listaEmpleado}">
+									<th th:text="${item.id}"></th>
+									<td th:text="${item.nombre}"></td>
+									<td th:text="${item.direccion}"></td>
+									<td th:text="${item.telefono}"></td>
+									<td th:text="${item.fecha_ingreso}"></td>
+									<td class="text-center"><a href="#" th:id="${item.id}"
+										th:param1="${item.nombre}" th:param2="${item.direccion}"
+										th:param3="${item.telefono}"
+										class="btn btn-warning editarEmpleado"><i
+											class="fas fa-edit"></i> Editar</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Modal Editar Categoria -->
+	<div id="editarEmpleado" class="modal fade" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true"
+		data-backdrop="static">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header color-barra text-white">
+					<h5 class="modal-title">Editar Empleado</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form method="post" th:action="@{/empleado/form}"
+					th:object="${empleado}" class="needs-validation" novalidate>
+					<input type="hidden" th:field="*{id}" />
+					<div class="modal-body" id="modalMensaje">
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Nombre:</label> <input name="nombre" id="txtNombre"
+									type="text" class="form-control" placeholder="Ingrese nombre"
+									minlength="1" maxlength="50" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}" 
+									required="required" />
+<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+							</div>
+						</div>
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Dirección:</label> <input name="descripcion"
+									id="txtDescripcion" type="text" class="form-control"
+									placeholder="Ingrese dirección" pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"
+									required="required" />
+								<div class="invalid-feedback">Ingrese dirección</div>
+							</div>
+								<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('direccion')}"
+									th:errors="*{direccion}"></small>
+						</div>
+						<div class="form-row">
+							<div class="col-12 mb-3">
+								<label>Teléfono:</label> <input name="telefono" id="txtTelefono"
+									type="number" class="form-control" placeholder="Ingrese teléfono"
+									minlength="1" maxlength="50" pattern="[0-9]{1,40}"
+									required="required" />
+								<div class="invalid-feedback">Ingrese teléfono</div>
+							</div>
+									<small class="form-text text-danger"
+									th:if="${#fields.hasErrors('telefono')}"
+									th:errors="*{telefono}"></small>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">
+							<i class="fas fa-ban"></i> Cancelar
+						</button>
+						<button class="btn btn-dark" type="submit">
+							<i class="fas fa-save"></i> Guardar Cambios
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" th:src="@{/js/empleado.js}"></script>
+	<script type="text/javascript" th:src="@{/js/nav.js}"></script>
+
+</body>
+</html>

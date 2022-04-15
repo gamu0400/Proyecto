@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/all.css}">
+    
+    <script type="text/javascript" th:src="@{/js/jquery-3.5.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    
+</head>
+<body>
+    <div class="container">
+    <div class="login-box">
+        <img class="avatar" th:src="@{/Imagen/bron.jpeg}" alt="Logo de Bron">
+        
+        <div class="row alert alert-warning alert-dismissible fade show" role="alert" th:if="${error!=null}">
+		  <strong>Error!</strong>
+		  <span th:text="${error}">Usuario y/o Contraseña Incorrecta</span>
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+		    <span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<br>
+        <form style="padding-left:80px" th:action="@{/autenticacion/}" method="post">
+        	
+        	<div class="row mt-4 mb-2" >
+        	  <div  col-12>
+	            <!--Nombre de usuario-->
+	            <label for="Nombre de usuario">Nombre de usuario</label>
+	            <input name="username" id="username" type="text" placeholder="Ingrese Nombre de usuario">
+              </div>
+             </div>
+             
+             <div class="row" >
+        	  <div col-12>
+               <!--Contraseña-->
+	             <label for="Contraseña">Contraseña</label>
+	             <input name="password" id="password" type="password" placeholder="Ingrese Contraseña">
+			  </div>
+             </div>
+             
+             
+             <div class="row pl-4 mt-4">
+        	  <div col-12>
+        	  
+        	 		<button type="submit" class="btn btn-warning">
+             	       <i class="fas fa-user-shield ml-1">&nbsp;&nbsp;Iniciar Sesión</i>
+             	     </button>
+          	  </div>
+             </div>
+             
+        </form>
+        
+    </div>
+</div>
+</body>
+</html>
